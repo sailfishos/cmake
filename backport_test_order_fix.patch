@@ -1,0 +1,23 @@
+From: David Cole <david.cole@kitware.com>
+Date: Fri, 18 Feb 2011 18:10:26 +0000 (-0500)
+Subject: Use stable_sort to preserve test order (#11877)
+Origin: backport, http://cmake.org/gitweb?p=cmake.git;a=commitdiff_plain;h=8af8eab7a43aa80ba89d082e23928e19265be885
+Bug: http://public.kitware.com/Bug/view.php?id=11877
+
+Use stable_sort to preserve test order (#11877)
+
+Using sort results in a possibly-modified sorting
+when all elements are "tied" - use stable_sort instead
+to preserve the original ordering of tied elements.
+
+--- a/Source/CTest/cmCTestMultiProcessHandler.cxx
++++ b/Source/CTest/cmCTestMultiProcessHandler.cxx
+@@ -484,7 +484,7 @@ void cmCTestMultiProcessHandler::CreateTestCostList()
+     }
+ 
+   TestComparator comp(this);
+-  std::sort(SortedTests.begin(), SortedTests.end(), comp);
++  std::stable_sort(SortedTests.begin(), SortedTests.end(), comp);
+ }
+ 
+ //---------------------------------------------------------

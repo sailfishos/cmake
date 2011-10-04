@@ -1,0 +1,13 @@
+<package project="Mer:Trunk:Base" name="cmake">
+  <title>Cross-platform make system</title>
+  <description>CMake is used to control the software compilation process using simple 
+platform and compiler independent configuration files. CMake generates 
+native makefiles and workspaces that can be used in the compiler 
+environment of your choice. CMake is quite sophisticated: it is possible 
+to support complex environments requiring system configuration, pre-processor 
+generation, code generation, and template instantiation.
+
+
+</description>
+  <url>http://www.cmake.org</url>
+</package>
