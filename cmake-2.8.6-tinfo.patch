@@ -1,0 +1,12 @@
+diff -ru cmake-2.8.6/Source/CursesDialog/CMakeLists.txt cmake-2.8.6-tinfo/Source/CursesDialog/CMakeLists.txt
+--- cmake-2.8.6/Source/CursesDialog/CMakeLists.txt	2011-10-04 18:09:25.000000000 +0200
++++ cmake-2.8.6-tinfo/Source/CursesDialog/CMakeLists.txt	2011-12-13 08:34:19.761618293 +0100
+@@ -32,6 +32,6 @@
+ 
+ ADD_EXECUTABLE(ccmake ${CURSES_SRCS} )
+ TARGET_LINK_LIBRARIES(ccmake CMakeLib)
+-TARGET_LINK_LIBRARIES(ccmake cmForm)
++TARGET_LINK_LIBRARIES(ccmake cmForm tinfo)
+ 
+ INSTALL_TARGETS(/bin ccmake)
+Only in cmake-2.8.6-tinfo/Source/CursesDialog: CMakeLists.txt~

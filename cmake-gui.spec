@@ -13,7 +13,7 @@
 %endif
 
 Name:           %{cmake_name}
-Version:        2.8.4
+Version:        2.8.6
 Release:        1
 License:        BSD
 %if 0%{?build_with_qt}
@@ -25,11 +25,10 @@ Url:            http://www.cmake.org
 Group:          Development/Tools
 Source0:        http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
 Source1:        macros.cmake
-Patch0:         backport_test_order_fix.patch
+Patch0:		cmake-2.8.6-tinfo.patch
 BuildRequires:  expat-devel
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(xmlrpc)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  procps
 %if 0%{?build_with_qt}
@@ -59,7 +58,7 @@ GUI is "%{name}".
 
 %prep
 %setup -q -n cmake-%{version}
-%patch0 -p1 -b .backport_test_order_fix
+%patch0 -p1
 # Fixup permissions
 find -name \*.h -o -name \*.cxx -print0 | xargs -0 chmod -x
 
@@ -75,7 +74,6 @@ set(BUILD_CursesDialog %{curses_dialog} CACHE BOOL "Build curses GUI" FORCE)
 set(BUILD_QtDialog %{qt_dialog} CACHE BOOL "Build Qt4 GUI" FORCE)
 set(MINGW_CC_LINUX2WIN_EXECUTABLE "" CACHE FILEPATH "Never detect mingw" FORCE)
 set(CMAKE_USE_SYSTEM_LIBARCHIVE YES CACHE BOOL "" FORCE)
-set(CTEST_USE_XMLRPC YES CACHE BOOL "" FORCE)
 EOF
 rm -rf %{_target_platform} && mkdir %{_target_platform}
 cd %{_target_platform} && ../bootstrap \
@@ -83,7 +81,7 @@ cd %{_target_platform} && ../bootstrap \
                           --docdir=/share/doc/cmake-%{version} \
                           --mandir=/share/man \
                           --datadir=/share/cmake \
-                          --%{?with_bootstrap:no-}system-libs \
+			  --system-libs \
                           --parallel=`/usr/bin/getconf _NPROCESSORS_ONLN` \
                           --init=%{buildroot}build-flags.cmake \
                           --system-libs
@@ -136,6 +134,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %files
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/rpm/macros.cmake
+%{_datadir}/aclocal/cmake.m4
 %{_datadir}/doc/%{name}-%{version}/
 %{_bindir}/ccmake
 %{_bindir}/cmake

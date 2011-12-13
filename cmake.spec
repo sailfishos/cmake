@@ -13,7 +13,7 @@
 %endif
 
 Name:           %{cmake_name}
-Version:        2.8.4
+Version:        2.8.6
 Release:        1
 License:        BSD
 %if 0%{?build_with_qt}
@@ -25,7 +25,7 @@ Url:            http://www.cmake.org
 Group:          Development/Tools
 Source0:        http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
 Source1:        macros.cmake
-Patch0:         backport_test_order_fix.patch
+Patch0:		cmake-2.8.6-tinfo.patch
 BuildRequires:  expat-devel
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libcurl)
@@ -58,7 +58,7 @@ GUI is "%{name}".
 
 %prep
 %setup -q -n cmake-%{version}
-%patch0 -p1 -b .backport_test_order_fix
+%patch0 -p1
 # Fixup permissions
 find -name \*.h -o -name \*.cxx -print0 | xargs -0 chmod -x
 
@@ -134,6 +134,7 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %files
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/rpm/macros.cmake
+%{_datadir}/aclocal/cmake.m4
 %{_datadir}/doc/%{name}-%{version}/
 %{_bindir}/ccmake
 %{_bindir}/cmake

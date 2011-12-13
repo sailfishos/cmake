@@ -1,3 +1,7 @@
+* Tue Dec 13 2011 Carsten Munk <carsten@maemo.org> - 2.8.6
+- Upgrade to 2.8.6
+- Add cmake-2.8.6-tinfo.patch to make it build with 4.6.3 toolchain/binutils
+
 * Sat Sep 03 2011 Carsten Munk <carsten@maemo.org> - 2.8.4
 - Remove circular dependancy, xmlrpc-c to cmake to xmlrpc-c
 
