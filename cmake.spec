@@ -13,7 +13,7 @@
 %endif
 
 Name:           %{cmake_name}
-Version:        2.8.6
+Version:        2.8.11
 Release:        1
 License:        BSD
 %if 0%{?build_with_qt}
@@ -23,9 +23,9 @@ Summary:        Cross-platform make system
 %endif
 Url:            http://www.cmake.org
 Group:          Development/Tools
-Source0:        http://www.cmake.org/files/v2.8/cmake-%{version}.tar.gz
+Source0:        http://www.cmake.org/files/v2.8/cmake-2.8.11.tar.gz
 Source1:        macros.cmake
-Patch0:		cmake-2.8.6-tinfo.patch
+Patch0:		cmake-2.8.11-tinfo.patch
 BuildRequires:  expat-devel
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libcurl)
@@ -57,7 +57,7 @@ GUI is "%{name}".
 %endif
 
 %prep
-%setup -q -n cmake-%{version}
+%setup -q -n %{name}-%{version}
 %patch0 -p1
 # Fixup permissions
 find -name \*.h -o -name \*.cxx -print0 | xargs -0 chmod -x

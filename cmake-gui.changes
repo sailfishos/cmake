@@ -1,3 +1,7 @@
+* Sun May 19 2013 Chris Leach <cxl000@hotmail.com> - 2.8.11
+- Upgrade to 2.8.11
+- Rebase tinfo patch
+
 * Tue Dec 13 2011 Carsten Munk <carsten@maemo.org> - 2.8.6
 - Upgrade to 2.8.6
 - Add cmake-2.8.6-tinfo.patch to make it build with 4.6.3 toolchain/binutils
