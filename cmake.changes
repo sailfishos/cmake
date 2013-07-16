@@ -1,3 +1,6 @@
+* Tue Jul 16 2013 Davide Bettio <davide.bettio@ispirata.com> - 2.8.11.2
+- Upgrade to 2.8.11
+
 * Sun May 19 2013 Chris Leach <cxl000@hotmail.com> - 2.8.11
 - Upgrade to 2.8.11
 - Rebase tinfo patch
