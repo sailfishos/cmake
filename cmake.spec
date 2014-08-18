@@ -2,6 +2,8 @@
 
 %define build_with_qt 0
 
+%define build_with_sphinx 0
+
 %if 0%{?build_with_qt}
 %define cmake_name cmake-gui
 %define curses_dialog FALSE
@@ -13,7 +15,7 @@
 %endif
 
 Name:           %{cmake_name}
-Version:        2.8.12.2
+Version:        3.0.1
 Release:        1
 License:        BSD
 %if 0%{?build_with_qt}
@@ -23,10 +25,11 @@ Summary:        Cross-platform make system
 %endif
 Url:            http://www.cmake.org
 Group:          Development/Tools
-Source0:        http://downloads.cmake.org/files/v2.8/cmake-2.8.12.2.tar.gz
+Source0:        http://www.cmake.org/files/v3.0/%{name}-%{version}.tar.gz
 Source1:        macros.cmake
 Patch0:		cmake-2.8.11-tinfo.patch
 BuildRequires:  expat-devel
+BuildRequires:  bzip2-devel
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(zlib)
@@ -37,6 +40,9 @@ BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(x11)
 Requires:       cmake = %{version}
 %else
+%if 0%{?build_with_sphinx}
+BuildRequires:  python-sphinx
+%endif
 BuildRequires:  pkgconfig(ncurses)
 Requires:       procps
 %endif
@@ -75,6 +81,11 @@ set(BUILD_QtDialog %{qt_dialog} CACHE BOOL "Build Qt4 GUI" FORCE)
 set(MINGW_CC_LINUX2WIN_EXECUTABLE "" CACHE FILEPATH "Never detect mingw" FORCE)
 set(CMAKE_USE_SYSTEM_LIBARCHIVE YES CACHE BOOL "" FORCE)
 EOF
+%if 0%{?build_with_sphinx}
+cat >> %{buildroot}build-flags.cmake << EOF
+set(SPHINX_MAN 0%{?build_with_sphinx} "" CACHE FILEPATH "Build man pages with Sphinx" FORCE)
+EOF
+%endif
 rm -rf %{_target_platform} && mkdir %{_target_platform}
 cd %{_target_platform} && ../bootstrap \
                           --prefix=%{_prefix} \
@@ -106,8 +117,7 @@ desktop-file-install \
 %else
 find %{buildroot}%{_datadir}/%{name}/Modules -name '*.sh*' -type f | xargs chmod -x
 mkdir -p %{buildroot}%{_datadir}/emacs/site-lisp
-cp -a Example %{buildroot}%{_datadir}/doc/%{name}-%{version}/
-install -m 0644 Docs/cmake-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/
+install -m 0644 Auxiliary/cmake-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/
 # Install cmake rpm macros
 install -D -p -m 0644 %{_sourcedir}/macros.cmake \
   %{buildroot}%{_sysconfdir}/rpm/macros.cmake
@@ -141,6 +151,8 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_bindir}/cpack
 %{_bindir}/ctest
 %{_datadir}/%{name}/
+%if 0%{?build_with_sphinx}
 %{_mandir}/man1/*.1*
+%endif
 %{_datadir}/emacs/
 %endif
