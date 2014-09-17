@@ -15,7 +15,7 @@
 %endif
 
 Name:           %{cmake_name}
-Version:        3.0.1
+Version:        3.0.2
 Release:        1
 License:        BSD
 %if 0%{?build_with_qt}
