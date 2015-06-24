@@ -15,7 +15,7 @@
 %endif
 
 Name:           %{cmake_name}
-Version:        3.0.2
+Version:        3.2.3
 Release:        1
 License:        BSD
 %if 0%{?build_with_qt}
@@ -27,9 +27,9 @@ Url:            http://www.cmake.org
 Group:          Development/Tools
 Source0:        http://www.cmake.org/files/v3.0/%{name}-%{version}.tar.gz
 Source1:        macros.cmake
-Patch0:		cmake-2.8.11-tinfo.patch
 BuildRequires:  expat-devel
 BuildRequires:  bzip2-devel
+BuildRequires:  xz-devel
 BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(zlib)
@@ -64,7 +64,6 @@ GUI is "%{name}".
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
 # Fixup permissions
 find -name \*.h -o -name \*.cxx -print0 | xargs -0 chmod -x
 
@@ -92,10 +91,15 @@ cd %{_target_platform} && ../bootstrap \
                           --docdir=/share/doc/cmake-%{version} \
                           --mandir=/share/man \
                           --datadir=/share/cmake \
-			  --system-libs \
                           --parallel=`/usr/bin/getconf _NPROCESSORS_ONLN` \
                           --init=%{buildroot}build-flags.cmake \
-                          --system-libs
+                          --system-curl \
+                          --system-expat \
+                          --system-zlib \
+                          --system-bzip2 \
+                          --system-libarchive \
+                          --no-system-jsoncpp
+# jsoncpp is not in mer-core so must use bundled version
 
 make VERBOSE=1 %{?_smp_mflags}
 
