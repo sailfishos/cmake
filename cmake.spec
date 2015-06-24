@@ -27,6 +27,8 @@ Url:            http://www.cmake.org
 Group:          Development/Tools
 Source0:        http://www.cmake.org/files/v3.0/%{name}-%{version}.tar.gz
 Source1:        macros.cmake
+Source100:      README.packager
+Source101:      pre_checkin.sh
 BuildRequires:  expat-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
