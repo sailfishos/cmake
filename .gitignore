@@ -1,0 +1,4 @@
+RPMS/
+installroot/
+installrootbuild-flags.cmake
+
