@@ -1,5 +1,5 @@
 Name:           cmake
-Version:        3.11.4
+Version:        3.15.2
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
