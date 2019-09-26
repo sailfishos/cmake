@@ -77,7 +77,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rpm/macros.cmake
 
 %files
 %defattr(-,root,root,-)
-%config(noreplace) %{_sysconfdir}/rpm/macros.cmake
+%config %{_sysconfdir}/rpm/macros.cmake
 %{_datadir}/aclocal/cmake.m4
 %{_datadir}/doc/%{name}-%{version}/
 %{_bindir}/ccmake
