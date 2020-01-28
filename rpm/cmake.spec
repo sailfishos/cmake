@@ -7,6 +7,7 @@ Url:            http://www.cmake.org
 Group:          Development/Tools
 Source0:        %{name}-%{version}.tar.gz
 Source1:        macros.cmake
+Patch0:         python38.patch
 BuildRequires:  expat-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
@@ -24,7 +25,7 @@ requiring system configuration, pre-processor generation, code generation, and
 template instantiation.
 
 %prep
-%setup -q -n %{name}-%{version}/%{name}
+%autosetup -p1 -n %{name}-%{version}/%{name}
 
 # Fixup permissions
 find -name \*.h -o -name \*.cxx -print0 | xargs -0 chmod -x
