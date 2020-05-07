@@ -3,7 +3,7 @@
 #
 %_cmake_lib_suffix64 -DLIB_SUFFIX=64
 %_cmake_skip_rpath -DCMAKE_SKIP_RPATH:BOOL=ON
-%__cmake %{_bindir}/cmake
+%__cmake cmake
 
 %cmake \
   CFLAGS="${CFLAGS:-%optflags}" ; export CFLAGS ; \
