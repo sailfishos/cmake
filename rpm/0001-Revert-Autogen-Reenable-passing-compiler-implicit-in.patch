@@ -1,0 +1,85 @@
+From 00589f4ad0280a9c5e52b848a107570e5c1b0844 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Matti=20Lehtim=C3=A4ki?= <matti.lehtimaki@jolla.com>
+Date: Thu, 21 May 2020 19:21:33 +0300
+Subject: [PATCH] Revert "Autogen: Reenable passing compiler implicit include
+ directories to moc"
+
+This reverts commit 03dbb62d31d4a115fed09049cf6995ce89d2fabe.
+---
+ Source/cmQtAutoGenInitializer.cxx         | 5 ++++-
+ Tests/QtAutogen/MocOsMacros/TestClass.cpp | 5 -----
+ Tests/QtAutogen/MocOsMacros/TestClass.hpp | 5 -----
+ Tests/QtAutogen/Tests.cmake               | 3 ++-
+ 4 files changed, 6 insertions(+), 12 deletions(-)
+
+diff --git a/Source/cmQtAutoGenInitializer.cxx b/Source/cmQtAutoGenInitializer.cxx
+index 629367d8c6..1cca2c897f 100644
+--- a/Source/cmQtAutoGenInitializer.cxx
++++ b/Source/cmQtAutoGenInitializer.cxx
+@@ -587,7 +587,10 @@ bool cmQtAutoGenInitializer::InitMoc()
+       // Get the include dirs for this target, without stripping the implicit
+       // include dirs off, see issue #13667.
+       std::vector<std::string> dirs;
+-      bool const appendImplicit = (this->QtVersion.Major >= 5);
++      // We need to disable this until we have all implicit includes available.
++      // See issue #18669.
++      // bool const appendImplicit = (this->QtVersion.Major >= 5);
++      bool const appendImplicit = false;
+       this->LocalGen->GetIncludeDirectoriesImplicit(
+         dirs, this->GenTarget, "CXX", cfg, false, appendImplicit);
+       return sanitizer(dirs);
+diff --git a/Tests/QtAutogen/MocOsMacros/TestClass.cpp b/Tests/QtAutogen/MocOsMacros/TestClass.cpp
+index babc08b128..4f91cc0e90 100644
+--- a/Tests/QtAutogen/MocOsMacros/TestClass.cpp
++++ b/Tests/QtAutogen/MocOsMacros/TestClass.cpp
+@@ -2,11 +2,6 @@
+ 
+ #include <iostream>
+ 
+-void TestClass::open()
+-{
+-  std::cout << "open\n";
+-}
+-
+ // -- Mac
+ #ifndef Q_OS_MAC
+ void TestClass::MacNotDef()
+diff --git a/Tests/QtAutogen/MocOsMacros/TestClass.hpp b/Tests/QtAutogen/MocOsMacros/TestClass.hpp
+index 87fd494789..53000aa79c 100644
+--- a/Tests/QtAutogen/MocOsMacros/TestClass.hpp
++++ b/Tests/QtAutogen/MocOsMacros/TestClass.hpp
+@@ -3,17 +3,12 @@
+ 
+ #include <QObject>
+ #include <QtGlobal>
+-// include qplatformdefs.h for #18669
+-#include <qplatformdefs.h>
+ 
+ class TestClass : public QObject
+ {
+   Q_OBJECT
+ public Q_SLOTS:
+ 
+-  // Method named "open" to test if #18669 is fixed
+-  void open();
+-
+ // -- Mac
+ #ifndef Q_OS_MAC
+   void MacNotDef();
+diff --git a/Tests/QtAutogen/Tests.cmake b/Tests/QtAutogen/Tests.cmake
+index a19a9aeec8..f64a886c1a 100644
+--- a/Tests/QtAutogen/Tests.cmake
++++ b/Tests/QtAutogen/Tests.cmake
+@@ -41,7 +41,8 @@ endif()
+ # Qt5 only tests
+ if(QT_TEST_VERSION GREATER 4)
+   ADD_AUTOGEN_TEST(MocMacroName mocMacroName)
+-  ADD_AUTOGEN_TEST(MocOsMacros)
++  # Disabled for issue #18669
++  #ADD_AUTOGEN_TEST(MocOsMacros)
+   ADD_AUTOGEN_TEST(RerunMocPlugin)
+   if(APPLE)
+     ADD_AUTOGEN_TEST(MacOsFW)
+-- 
+2.17.1
+
