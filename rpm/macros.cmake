@@ -12,7 +12,6 @@
   %__cmake \\\
         -DCMAKE_VERBOSE_MAKEFILE=ON \\\
         -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \\\
-        -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \\\
         -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \\\
         -DLIB_INSTALL_DIR:PATH=%{_libdir} \\\
         -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \\\
