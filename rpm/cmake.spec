@@ -1,13 +1,12 @@
 Name:           cmake
-Version:        3.11.4
+Version:        3.19.3
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
 Url:            http://www.cmake.org
-Group:          Development/Tools
 Source0:        %{name}-%{version}.tar.gz
 Source1:        macros.cmake
-Patch0:         python38.patch
+Patch0:         0001-Revert-Autogen-Reenable-passing-compiler-implicit-in.patch
 BuildRequires:  expat-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
@@ -75,6 +74,10 @@ install -m 0644 Auxiliary/cmake-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/
 
 # Install cmake rpm macros
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rpm/macros.cmake
+
+# Remove useless bash-completion and vim files
+rm -Rf %{buildroot}%{_datadir}/bash-completion
+rm -Rf %{buildroot}%{_datadir}/vim
 
 %files
 %defattr(-,root,root,-)
