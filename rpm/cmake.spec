@@ -7,6 +7,7 @@ Url:            http://www.cmake.org
 Source0:        %{name}-%{version}.tar.gz
 Source1:        macros.cmake
 Patch0:         0001-Revert-Autogen-Reenable-passing-compiler-implicit-in.patch
+Patch1:         0002-cmFileAPI-Allow-to-control-the-file-API-path.patch
 BuildRequires:  expat-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
