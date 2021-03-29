@@ -1,0 +1,32 @@
+From 06455df67e65df50c2eabb1ae81e57f63d037aea Mon Sep 17 00:00:00 2001
+From: Martin Kampas <martin.kampas@jolla.com>
+Date: Fri, 26 Mar 2021 12:05:58 +0100
+Subject: [PATCH] cmFileAPI: Allow to control the file API path
+
+Allow postprocessing of the reply before the IDE gets to it.
+---
+ Source/cmFileAPI.cxx | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/Source/cmFileAPI.cxx b/Source/cmFileAPI.cxx
+index c2ab2f10b0..1903c93332 100644
+--- a/Source/cmFileAPI.cxx
++++ b/Source/cmFileAPI.cxx
+@@ -27,8 +27,13 @@
+ cmFileAPI::cmFileAPI(cmake* cm)
+   : CMakeInstance(cm)
+ {
++  std::string prefix;
++  cmSystemTools::GetEnv("CMAKE_FILE_API_PREFIX", prefix);
++  if (prefix.empty())
++      prefix = ".cmake";
++
+   this->APIv1 =
+-    this->CMakeInstance->GetHomeOutputDirectory() + "/.cmake/api/v1";
++    this->CMakeInstance->GetHomeOutputDirectory() + "/" + prefix + "/api/v1";
+ 
+   Json::CharReaderBuilder rbuilder;
+   rbuilder["collectComments"] = false;
+-- 
+2.30.1
+
