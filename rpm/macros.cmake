@@ -13,7 +13,7 @@
         -DCMAKE_VERBOSE_MAKEFILE=ON \\\
         -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \\\
         -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \\\
-        -DLIB_INSTALL_DIR:PATH=%{_libdir} \\\
+        -DLIB_INSTALL_DIR:PATH=%{_lib} \\\
         -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \\\
         -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \\\
 %if "%{?_lib}" == "lib64" \
