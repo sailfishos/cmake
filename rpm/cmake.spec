@@ -15,6 +15,7 @@ BuildRequires:  pkgconfig(libarchive) >= 2.8.0
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(ncurses)
+BuildRequires:  libstdc++-devel
 
 %description
 CMake is used to control the software compilation process using simple platform
