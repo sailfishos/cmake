@@ -1,5 +1,5 @@
 Name:           cmake
-Version:        3.19.3
+Version:        3.27.1
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
@@ -63,7 +63,7 @@ cd %{_target_platform} && ../bootstrap \
                           --no-system-jsoncpp
 # jsoncpp is not in mer-core so must use bundled version
 
-make VERBOSE=1 %{?_smp_mflags}
+%make_build
 
 %install
 

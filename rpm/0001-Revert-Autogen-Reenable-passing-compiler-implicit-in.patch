@@ -1,4 +1,4 @@
-From 00589f4ad0280a9c5e52b848a107570e5c1b0844 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Matti=20Lehtim=C3=A4ki?= <matti.lehtimaki@jolla.com>
 Date: Thu, 21 May 2020 19:21:33 +0300
 Subject: [PATCH] Revert "Autogen: Reenable passing compiler implicit include
@@ -13,10 +13,10 @@ This reverts commit 03dbb62d31d4a115fed09049cf6995ce89d2fabe.
  4 files changed, 6 insertions(+), 12 deletions(-)
 
 diff --git a/Source/cmQtAutoGenInitializer.cxx b/Source/cmQtAutoGenInitializer.cxx
-index 629367d8c6..1cca2c897f 100644
+index c9f65f6751651adb39da2180262bf1ccf1c7b3a7..98d8844f313d33a784de5f8971bf770701757860 100644
 --- a/Source/cmQtAutoGenInitializer.cxx
 +++ b/Source/cmQtAutoGenInitializer.cxx
-@@ -587,7 +587,10 @@ bool cmQtAutoGenInitializer::InitMoc()
+@@ -656,7 +656,10 @@ bool cmQtAutoGenInitializer::InitMoc()
        // Get the include dirs for this target, without stripping the implicit
        // include dirs off, see issue #13667.
        std::vector<std::string> dirs;
@@ -29,7 +29,7 @@ index 629367d8c6..1cca2c897f 100644
          dirs, this->GenTarget, "CXX", cfg, false, appendImplicit);
        return sanitizer(dirs);
 diff --git a/Tests/QtAutogen/MocOsMacros/TestClass.cpp b/Tests/QtAutogen/MocOsMacros/TestClass.cpp
-index babc08b128..4f91cc0e90 100644
+index babc08b128c0147ab5758ce5e64e00eb80891471..4f91cc0e90e379e07fb7b376528bf8aec182b9ee 100644
 --- a/Tests/QtAutogen/MocOsMacros/TestClass.cpp
 +++ b/Tests/QtAutogen/MocOsMacros/TestClass.cpp
 @@ -2,11 +2,6 @@
@@ -45,7 +45,7 @@ index babc08b128..4f91cc0e90 100644
  #ifndef Q_OS_MAC
  void TestClass::MacNotDef()
 diff --git a/Tests/QtAutogen/MocOsMacros/TestClass.hpp b/Tests/QtAutogen/MocOsMacros/TestClass.hpp
-index 87fd494789..53000aa79c 100644
+index 87fd4947892d0cabd135c5edc618530b590f03b9..53000aa79c7fc4d2574f37597fd64fc532bd8239 100644
 --- a/Tests/QtAutogen/MocOsMacros/TestClass.hpp
 +++ b/Tests/QtAutogen/MocOsMacros/TestClass.hpp
 @@ -3,17 +3,12 @@
@@ -67,19 +67,16 @@ index 87fd494789..53000aa79c 100644
  #ifndef Q_OS_MAC
    void MacNotDef();
 diff --git a/Tests/QtAutogen/Tests.cmake b/Tests/QtAutogen/Tests.cmake
-index a19a9aeec8..f64a886c1a 100644
+index d676abde3d13da54c651da3149c07f4e212ba3bc..157758ede0f180b867ff6e8dedcb4aed27b5b067 100644
 --- a/Tests/QtAutogen/Tests.cmake
 +++ b/Tests/QtAutogen/Tests.cmake
-@@ -41,7 +41,8 @@ endif()
- # Qt5 only tests
+@@ -53,7 +53,8 @@ endif()
+ # Qt5 and Qt6 only tests
  if(QT_TEST_VERSION GREATER 4)
    ADD_AUTOGEN_TEST(MocMacroName mocMacroName)
 -  ADD_AUTOGEN_TEST(MocOsMacros)
 +  # Disabled for issue #18669
 +  #ADD_AUTOGEN_TEST(MocOsMacros)
    ADD_AUTOGEN_TEST(RerunMocPlugin)
+   ADD_AUTOGEN_TEST(WrappedFindPackage)
    if(APPLE)
-     ADD_AUTOGEN_TEST(MacOsFW)
--- 
-2.17.1
-

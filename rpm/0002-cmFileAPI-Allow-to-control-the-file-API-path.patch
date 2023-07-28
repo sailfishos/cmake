@@ -1,4 +1,4 @@
-From 06455df67e65df50c2eabb1ae81e57f63d037aea Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Martin Kampas <martin.kampas@jolla.com>
 Date: Fri, 26 Mar 2021 12:05:58 +0100
 Subject: [PATCH] cmFileAPI: Allow to control the file API path
@@ -9,10 +9,10 @@ Allow postprocessing of the reply before the IDE gets to it.
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/Source/cmFileAPI.cxx b/Source/cmFileAPI.cxx
-index c2ab2f10b0..1903c93332 100644
+index 8abb5a82f3198f1948d95689c8d26573a2debce2..4551441fe28e8293ca6b1887c1a99eac39089b6e 100644
 --- a/Source/cmFileAPI.cxx
 +++ b/Source/cmFileAPI.cxx
-@@ -27,8 +27,13 @@
+@@ -29,8 +29,13 @@
  cmFileAPI::cmFileAPI(cmake* cm)
    : CMakeInstance(cm)
  {
@@ -27,6 +27,3 @@ index c2ab2f10b0..1903c93332 100644
  
    Json::CharReaderBuilder rbuilder;
    rbuilder["collectComments"] = false;
--- 
-2.30.1
-
