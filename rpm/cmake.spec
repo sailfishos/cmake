@@ -1,11 +1,13 @@
+%global major_version 3
+
 Name:           cmake
-Version:        3.19.3
+Version:        3.27.1
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
 Url:            http://www.cmake.org
 Source0:        %{name}-%{version}.tar.gz
-Source1:        macros.cmake
+Source1:        macros.cmake.in
 Patch0:         0001-Revert-Autogen-Reenable-passing-compiler-implicit-in.patch
 Patch1:         0002-cmFileAPI-Allow-to-control-the-file-API-path.patch
 BuildRequires:  expat-devel
@@ -16,6 +18,8 @@ BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  libstdc++-devel
+
+%define cmake_version %(echo %{version} | cut -d '+' -f 1)
 
 %description
 CMake is used to control the software compilation process using simple platform
@@ -63,7 +67,7 @@ cd %{_target_platform} && ../bootstrap \
                           --no-system-jsoncpp
 # jsoncpp is not in mer-core so must use bundled version
 
-make VERBOSE=1 %{?_smp_mflags}
+%make_build
 
 %install
 
@@ -76,6 +80,7 @@ install -m 0644 Auxiliary/cmake-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/
 
 # Install cmake rpm macros
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rpm/macros.cmake
+sed -i -e "s|@@CMAKE_VERSION@@|%{cmake_version}|" -e "s|@@CMAKE_MAJOR_VERSION@@|%{major_version}|" %{buildroot}%{_sysconfdir}/rpm/macros.cmake
 
 # Remove useless bash-completion and vim files
 rm -Rf %{buildroot}%{_datadir}/bash-completion
