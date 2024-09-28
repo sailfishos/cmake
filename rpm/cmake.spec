@@ -8,6 +8,8 @@ Summary:        Cross-platform make system
 Url:            http://www.cmake.org
 Source0:        %{name}-%{version}.tar.gz
 Source1:        macros.cmake.in
+Source2:        %{name}.attr
+Source3:        %{name}.prov
 Patch0:         0001-Revert-Autogen-Reenable-passing-compiler-implicit-in.patch
 Patch1:         0002-cmFileAPI-Allow-to-control-the-file-API-path.patch
 BuildRequires:  expat-devel
@@ -79,12 +81,18 @@ install -m 0644 Auxiliary/cmake-mode.el %{buildroot}%{_datadir}/emacs/site-lisp/
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rpm/macros.cmake
 sed -i -e "s|@@CMAKE_VERSION@@|%{cmake_version}|" -e "s|@@CMAKE_MAJOR_VERSION@@|%{major_version}|" %{buildroot}%{_sysconfdir}/rpm/macros.cmake
 
+# RPM auto provides
+install -p -m0644 -D %{SOURCE2} %{buildroot}%{_prefix}/lib/rpm/fileattrs/%{name}.attr
+install -p -m0755 -D %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/%{name}.prov
+
 # Remove useless bash-completion and vim files
 rm -Rf %{buildroot}%{_datadir}/bash-completion
 rm -Rf %{buildroot}%{_datadir}/vim
 
 %files
 %config %{_sysconfdir}/rpm/macros.cmake
+%{_rpmconfigdir}/fileattrs/%{name}.attr
+%{_rpmconfigdir}/%{name}.prov
 %{_datadir}/aclocal/cmake.m4
 %{_datadir}/doc/%{name}-%{version}/
 %{_bindir}/ccmake
