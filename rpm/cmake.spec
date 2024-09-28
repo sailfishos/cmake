@@ -1,7 +1,7 @@
 %global major_version 3
 
 Name:           cmake
-Version:        3.27.1
+Version:        3.30.3
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
@@ -31,9 +31,6 @@ template instantiation.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}/%{name}
-
-# Fixup permissions
-find -name \*.h -o -name \*.cxx -print0 | xargs -0 chmod -x
 
 %build
 
@@ -87,7 +84,6 @@ rm -Rf %{buildroot}%{_datadir}/bash-completion
 rm -Rf %{buildroot}%{_datadir}/vim
 
 %files
-%defattr(-,root,root,-)
 %config %{_sysconfdir}/rpm/macros.cmake
 %{_datadir}/aclocal/cmake.m4
 %{_datadir}/doc/%{name}-%{version}/
