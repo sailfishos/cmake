@@ -9,10 +9,10 @@ Allow postprocessing of the reply before the IDE gets to it.
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/Source/cmFileAPI.cxx b/Source/cmFileAPI.cxx
-index 8abb5a82f3198f1948d95689c8d26573a2debce2..4551441fe28e8293ca6b1887c1a99eac39089b6e 100644
+index d4a717586df3869c5bdca444a3a43484b4c43f56..a6412bc5e268e3c96fdab60bb84e60fc69d1d1cb 100644
 --- a/Source/cmFileAPI.cxx
 +++ b/Source/cmFileAPI.cxx
-@@ -29,8 +29,13 @@
+@@ -28,8 +28,13 @@
  cmFileAPI::cmFileAPI(cmake* cm)
    : CMakeInstance(cm)
  {
