@@ -1,7 +1,7 @@
-%global major_version 3
+%global major_version 4
 
 Name:           cmake
-Version:        3.30.3
+Version:        4.0.1
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
