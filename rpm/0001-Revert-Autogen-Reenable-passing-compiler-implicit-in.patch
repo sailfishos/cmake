@@ -13,7 +13,7 @@ This reverts commit 03dbb62d31d4a115fed09049cf6995ce89d2fabe.
  4 files changed, 6 insertions(+), 12 deletions(-)
 
 diff --git a/Source/cmQtAutoGenInitializer.cxx b/Source/cmQtAutoGenInitializer.cxx
-index ee53a8ec73575c3ef1ee8ad07c58df1a4356d2c9..ca9e3a60726c5b000c4437ce87bfd1444e403b44 100644
+index 5810d03713b9e3adcbb0053a13b22051546c5750..0ef6b260b6ac86f59ffcdfd72640231ea19ec644 100644
 --- a/Source/cmQtAutoGenInitializer.cxx
 +++ b/Source/cmQtAutoGenInitializer.cxx
 @@ -735,7 +735,10 @@ bool cmQtAutoGenInitializer::InitMoc()
@@ -67,10 +67,10 @@ index 87fd4947892d0cabd135c5edc618530b590f03b9..53000aa79c7fc4d2574f37597fd64fc5
  #ifndef Q_OS_MAC
    void MacNotDef();
 diff --git a/Tests/QtAutogen/Tests.cmake b/Tests/QtAutogen/Tests.cmake
-index d37be1c13485b34c0565bcb96dfb9c86c35f94b1..8ab40c54aef3687a021f3c593967cdfdb1af90b6 100644
+index bd0c598495a2cbcc3eb8ee8e3329c0f1ab84fe95..516d57aaadc377225c3d313beddba62f927ea687 100644
 --- a/Tests/QtAutogen/Tests.cmake
 +++ b/Tests/QtAutogen/Tests.cmake
-@@ -58,7 +58,8 @@ endif()
+@@ -56,7 +56,8 @@ endif()
  # Qt5 and Qt6 only tests
  if(QT_TEST_VERSION GREATER 4)
    ADD_AUTOGEN_TEST(MocMacroName mocMacroName)

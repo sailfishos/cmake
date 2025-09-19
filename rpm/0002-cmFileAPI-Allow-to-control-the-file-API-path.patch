@@ -9,10 +9,10 @@ Allow postprocessing of the reply before the IDE gets to it.
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/Source/cmFileAPI.cxx b/Source/cmFileAPI.cxx
-index d4a717586df3869c5bdca444a3a43484b4c43f56..a6412bc5e268e3c96fdab60bb84e60fc69d1d1cb 100644
+index 1f15612210e4efa3b7426ee4ae0b8ed7277831c6..b28d41c30c78a390d2567e926f26468421cd2d0d 100644
 --- a/Source/cmFileAPI.cxx
 +++ b/Source/cmFileAPI.cxx
-@@ -28,8 +28,13 @@
+@@ -32,8 +32,13 @@
  cmFileAPI::cmFileAPI(cmake* cm)
    : CMakeInstance(cm)
  {
@@ -22,8 +22,8 @@ index d4a717586df3869c5bdca444a3a43484b4c43f56..a6412bc5e268e3c96fdab60bb84e60fc
 +      prefix = ".cmake";
 +
    this->APIv1 =
--    this->CMakeInstance->GetHomeOutputDirectory() + "/.cmake/api/v1";
-+    this->CMakeInstance->GetHomeOutputDirectory() + "/" + prefix + "/api/v1";
+-    cmStrCat(this->CMakeInstance->GetHomeOutputDirectory(), "/.cmake/api/v1");
++    cmStrCat(this->CMakeInstance->GetHomeOutputDirectory(), "/", prefix, "/api/v1");
  
-   Json::CharReaderBuilder rbuilder;
-   rbuilder["collectComments"] = false;
+   if (cm::optional<std::string> cmakeConfigDir =
+         cmSystemTools::GetCMakeConfigDirectory()) {

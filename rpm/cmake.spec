@@ -1,7 +1,7 @@
 %global major_version 3
 
 Name:           cmake
-Version:        3.30.3
+Version:        3.31.8
 Release:        1
 License:        BSD
 Summary:        Cross-platform make system
@@ -12,6 +12,7 @@ Source2:        %{name}.attr
 Source3:        %{name}.prov
 Patch0:         0001-Revert-Autogen-Reenable-passing-compiler-implicit-in.patch
 Patch1:         0002-cmFileAPI-Allow-to-control-the-file-API-path.patch
+Patch2:         0003-cmCTestCurl-Avoid-using-undocumented-type-for-CURLOP.patch
 BuildRequires:  expat-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  xz-devel
